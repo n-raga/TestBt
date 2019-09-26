@@ -1057,19 +1057,6 @@ BOOL MsBt7_ExecAuthenticateDeviceEx(PBYTE BdAddr, DWORD dwType, PCHAR pszPortNam
             pServiceGuid = SerialPortServiceClass_UUID;
             break;
 
-        case 1:
-            if (NULL != authCallbackHandleHs)
-            {
-                AppendLogEx(LOG_INFO, _T("%s"), _T("BluetoothAPIs::BluetoothUnregisterAuthentication()"));
-                BluetoothUnregisterAuthentication(authCallbackHandleHs); // Da Verificare
-            }
-
-            dwRes = BluetoothRegisterForAuthenticationEx(&deviceInfo,
-                &authCallbackHandleHs, (PFN_AUTHENTICATION_CALLBACK_EX)auth_callback_ex_hs, NULL);
-			authRequirements = MITMProtectionRequired;
-            //pServiceGuid = HeadsetServiceClass_UUID; //-> Cuffia Auricolare
-            pServiceGuid = HandsfreeServiceClass_UUID; //-> Telefonia in viva voce
-            break;
 		case 2:
 			if (NULL != authCallbackHandleSPP)
 			{
@@ -1079,9 +1066,9 @@ BOOL MsBt7_ExecAuthenticateDeviceEx(PBYTE BdAddr, DWORD dwType, PCHAR pszPortNam
 
 			dwRes = BluetoothRegisterForAuthenticationEx(&deviceInfo,
 				&authCallbackHandleSPP, (PFN_AUTHENTICATION_CALLBACK_EX)auth_callback_ex_ssp, NULL);
-			//authRequirements = MITMProtectionNotRequired;
+			authRequirements = MITMProtectionNotRequired;
 			//authRequirements = MITMProtectionRequiredGeneralBonding;
-			pServiceGuid = NAPServiceClass_UUID; //-> TXT Multihub
+			pServiceGuid = NAPServiceClass_UUID;
 			
 			break;
     }

@@ -88,16 +88,11 @@ BOOL CMsModule7::BindDevice(HWND hWnd, PBTDEVICE pBtd)
 {
 	btLogger.AppendLog(LOG_INFO, _T("Binding device %s (class %08X)..."), pBtd->bdName, pBtd->bdClass);
     DWORD dwType = 0; // Default, strumento Texa
-    //CString hexVal;
-    //hexVal.Format(_T("%X"), pBtd->bdClass);
+
 	if(0x00020000 == (pBtd->bdClass & 0x00020000))
 	{
-		dwType = 2; // TXT Multihub
-	}
-    //else if (_T("200") == hexVal.Mid(0, 3))
-	else if (0x00200000 == (pBtd->bdClass & 00200000))
-	{
-		dwType = 1; // Headset Bluetooth (classe dispositivo: 0x200404)
+		// My Device
+		dwType = 2; 
 	}
 
     CHAR pszComPort[6];
