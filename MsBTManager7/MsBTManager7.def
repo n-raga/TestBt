@@ -1,0 +1,6 @@
+; MsBTManager7.def : Declares the module parameters for the DLL.
+
+LIBRARY      "MsBTManager7"
+
+EXPORTS
+    ; Explicit exports can go here
