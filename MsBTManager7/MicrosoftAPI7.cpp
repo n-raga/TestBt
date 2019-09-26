@@ -1077,12 +1077,9 @@ BOOL MsBt7_ExecAuthenticateDeviceEx(PBYTE BdAddr, DWORD dwType, PCHAR pszPortNam
 				BluetoothUnregisterAuthentication(authCallbackHandleSPP); // Da Verificare
 			}
 
-			//dwRes = ERROR_SUCCESS;
 			dwRes = BluetoothRegisterForAuthenticationEx(&deviceInfo,
 				&authCallbackHandleSPP, (PFN_AUTHENTICATION_CALLBACK_EX)auth_callback_ex_ssp, NULL);
-			//dwRes = BluetoothRegisterForAuthenticationEx(&deviceInfo,
-			//	&authCallbackHandleSPP, (PFN_AUTHENTICATION_CALLBACK_EX)BluetoothAuthCallbackSSP, NULL);
-			authRequirements = MITMProtectionNotRequired;
+			//authRequirements = MITMProtectionNotRequired;
 			//authRequirements = MITMProtectionRequiredGeneralBonding;
 			pServiceGuid = NAPServiceClass_UUID; //-> TXT Multihub
 			
@@ -1091,11 +1088,7 @@ BOOL MsBt7_ExecAuthenticateDeviceEx(PBYTE BdAddr, DWORD dwType, PCHAR pszPortNam
 
     if (ERROR_SUCCESS != dwRes)
     {
-        AppendLogEx(LOG_ERROR, _T("%s"), _T("BluetoothAPIs::BluetoothRegisterForAuthenticationEx() failure!"));
-        TRACE(_T("BluetoothRegisterForAuthenticationEx() failed! %s\r\n"), MsBt7_ErrorDisp(dwRes));
-        // <TO DO>: MessageBox di errore stile IDC4?
-        AfxMessageBox(MsBt7_ErrorDisp(dwRes));
-        CloseHandle(hRadio);
+        AppendLogEx(LOG_ERROR, _T("BluetoothAPIs::BluetoothRegisterForAuthenticationEx() failure with err: %s!"), MsBt7_ErrorDisp(dwRes));
         AppendLogEx(LOG_INFO, _T("BluetoothAPIs::BluetoothFindRadioClose()"));
         BluetoothFindRadioClose(hFind);
         return FALSE;
@@ -1111,10 +1104,7 @@ BOOL MsBt7_ExecAuthenticateDeviceEx(PBYTE BdAddr, DWORD dwType, PCHAR pszPortNam
     {
         AppendLogEx(LOG_ERROR, _T("%s"), _T("BluetoothAPIs::BluetoothAuthenticateDeviceEx() failure!"));
         TRACE(_T("BluetoothAuthenticateDeviceEx() failed! %s\r\n"), MsBt7_ErrorDisp(dwRes));
-        // <TO DO>: MessageBox di errore stile IDC4?
-        //CString errMsg;
-        //errMsg.Format(_T("%s%s"), MsBt7_ErrorDisp(dwRes), _T("Verificare che il dispositivo sia acceso e ritentare."));
-        //AfxMessageBox(errMsg);
+
         CloseHandle(hRadio);
         AppendLogEx(LOG_INFO, _T("BluetoothAPIs::BluetoothFindRadioClose()"));
         BluetoothFindRadioClose(hFind);

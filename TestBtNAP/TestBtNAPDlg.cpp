@@ -77,7 +77,6 @@ BOOL CTestBtNAPDlg::OnInitDialog()
 
 	// ********** ********** ********** ********** **********
 
-	DWORD dwStatus;
 	int init_code = InitBluetooth();
 
 	InitListControl();
@@ -155,6 +154,8 @@ void CTestBtNAPDlg::OnBnClickedSearch()
 	GetDlgItem(IDC_LIST_DEVICES)->UpdateWindow();
 
 	CBTModule::Instance()->StartInquiry(GetSafeHwnd());
+
+	MessageBox(L"Search done!");
 }
 
 
